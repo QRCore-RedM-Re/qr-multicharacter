@@ -1,3 +1,5 @@
+local QRCore = exports['qr-core']:GetCoreObject()
+
 local charPed = nil
 local choosingCharacter = false
 local currentSkin = nil
@@ -114,7 +116,7 @@ local function skyCam(bool)
 end
 
 local function openCharMenu(bool)
-    exports['qr-core']:TriggerCallback("qr-multicharacter:server:GetNumberOfCharacters", function(result)
+    QRCore.Functions.TriggerCallback("qr-multicharacter:server:GetNumberOfCharacters", function(result)
         SetNuiFocus(bool, bool)
         SendNUIMessage({
             action = "ui",
@@ -212,7 +214,7 @@ RegisterNUICallback('cDataPed', function(nData, cb)
     DeleteEntity(charPed)
 
     if cData ~= nil then
-        exports['qr-core']:TriggerCallback('qr-multicharacter:server:getSkin', function(data)
+        QRCore.Functions.TriggerCallback('qr-multicharacter:server:getSkin', function(data)
             model = data.model and tonumber(data.model) or false
             currentSkin = data.skin or {}
             currentClothes = data.clothes or {}
@@ -279,7 +281,7 @@ RegisterNUICallback('cDataPed', function(nData, cb)
 end)
 
 RegisterNUICallback('setupCharacters', function(_, cb)
-    exports['qr-core']:TriggerCallback("qr-multicharacter:server:setupCharacters", function(result)
+    QRCore.Functions.TriggerCallback("qr-multicharacter:server:setupCharacters", function(result)
         SendNUIMessage({
             action = "setupCharacters",
             characters = result
