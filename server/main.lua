@@ -5,14 +5,14 @@ local identifierUsed = GetConvar('es_identifierUsed', 'steam')
 local foundResources = {}
 
 local StarterItems = {
-    ['apple'] = { amount = 1, item = 'apple' }
+    ['water'] = { amount = 5, item = 'water' },
+	['bread'] = { amount = 5, item = 'bread' }
 }
-
 
 local function GiveStarterItems(source)
     local Player = QRCore.Functions.GetPlayer(source)
     for k, v in pairs(StarterItems) do
-        Player.Functions.AddItem(v.item, 1)
+        Player.Functions.AddItem(v.item, v.amount)
     end
 end
 
