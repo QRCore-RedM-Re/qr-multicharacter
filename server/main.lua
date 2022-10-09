@@ -5,14 +5,14 @@ local identifierUsed = GetConvar('es_identifierUsed', 'steam')
 local foundResources = {}
 
 local StarterItems = {
-    ['apple'] = { amount = 1, item = 'apple' }
+    ['water'] = { amount = 5, item = 'water' },
+	['bread'] = { amount = 5, item = 'bread' }
 }
-
 
 local function GiveStarterItems(source)
     local Player = QRCore.Functions.GetPlayer(source)
     for k, v in pairs(StarterItems) do
-        Player.Functions.AddItem(v.item, 1)
+        Player.Functions.AddItem(v.item, v.amount)
     end
 end
 
@@ -115,6 +115,14 @@ QRCore.Functions.CreateCallback("qr-multicharacter:server:GetNumberOfCharacters"
         numOfChars = Config.DefaultNumberOfCharacters
     end
     cb(numOfChars)
+end)
+
+QRCore.Functions.CreateCallback("qr-multicharacter:server:getSkin", function(source, cb, cid)
+    MySQL.Async.fetchAll('SELECT * FROM playerskins WHERE citizenid = ? AND active = ?', {cid, 1}, function(result)
+        result[1].skin = json.decode(result[1].skin)
+        result[1].clothes = json.decode(result[1].clothes)
+        cb(result[1])
+    end)
 end)
 
 QRCore.Commands.Add("logout", "Logout of Character (Admin Only)", {}, false, function(source)
