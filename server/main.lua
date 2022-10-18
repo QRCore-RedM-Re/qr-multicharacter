@@ -1,18 +1,18 @@
 -- Functions
-local QRCore = exports['qr-core']:GetCoreObject()
-
 local identifierUsed = GetConvar('es_identifierUsed', 'steam')
 local foundResources = {}
+-- Functions
+local QRCore = exports['qr-core']:GetCoreObject()
 
 local StarterItems = {
-    ['water'] = { amount = 5, item = 'water' },
-	['bread'] = { amount = 5, item = 'bread' }
+    ['apple'] = { amount = 1, item = 'apple' }
 }
+
 
 local function GiveStarterItems(source)
     local Player = QRCore.Functions.GetPlayer(source)
     for k, v in pairs(StarterItems) do
-        Player.Functions.AddItem(v.item, v.amount)
+        Player.Functions.AddItem(v.item, 1)
     end
 end
 
@@ -48,7 +48,7 @@ local function loadHouseData()
 end
 
 RegisterNetEvent('qr-multicharacter:server:disconnect', function(source)
-    DropPlayer(source, "You have disconnected from QRCore RedM")
+    DropPlayer(source, "You have disconnected from QBCore RedM")
 end)
 
 RegisterNetEvent('qr-multicharacter:server:loadUserData', function(cData)
@@ -65,16 +65,13 @@ end)
 RegisterNetEvent('qr-multicharacter:server:createCharacter', function(data, enabledhouses)
     local newData = {}
     local src = source
-    local randbucket = (GetPlayerPed(src) .. math.random(1,999))
     newData.cid = data.cid
     newData.charinfo = data
     if QRCore.Player.Login(src, false, newData) then
-        SetPlayerRoutingBucket(src, randbucket)
-        print('^2[qr-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
+        QRCore.ShowSuccess(GetCurrentResourceName(), GetPlayerName(src)..' has succesfully loaded!')
         QRCore.Commands.Refresh(src)
         --[[if enabledhouses then loadHouseData() end]] -- Enable once housing is ready
         TriggerClientEvent("qr-multicharacter:client:closeNUI", src)
-        TriggerClientEvent('qr-spawn:client:setupSpawnUI', src, newData, true)
         GiveStarterItems(src)
 	end
 end)
@@ -115,14 +112,6 @@ QRCore.Functions.CreateCallback("qr-multicharacter:server:GetNumberOfCharacters"
         numOfChars = Config.DefaultNumberOfCharacters
     end
     cb(numOfChars)
-end)
-
-QRCore.Functions.CreateCallback("qr-multicharacter:server:getSkin", function(source, cb, cid)
-    MySQL.Async.fetchAll('SELECT * FROM playerskins WHERE citizenid = ? AND active = ?', {cid, 1}, function(result)
-        result[1].skin = json.decode(result[1].skin)
-        result[1].clothes = json.decode(result[1].clothes)
-        cb(result[1])
-    end)
 end)
 
 QRCore.Commands.Add("logout", "Logout of Character (Admin Only)", {}, false, function(source)

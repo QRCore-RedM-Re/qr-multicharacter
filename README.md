@@ -1,32 +1,32 @@
-# qb-multicharacter
-Multi Character Feature for QB-Core Framework :people_holding_hands:
+# qr-multicharacter
+Multi Character Feature for QR-Core Framework
 
 Added support for setting default number of characters per player per Rockstar license
 
 ## Dependencies
-- [qb-core](https://github.com/QRCore-framework/qb-core)
-- [qb-spawn](https://github.com/QRCore-framework/qb-spawn) - Spawn selector
-- [qb-apartments](https://github.com/QRCore-framework/qb-apartments) - For giving the player a apartment after creating a character.
-- [qb-clothing](https://github.com/QRCore-framework/qb-clothing) - For the character creation and saving outfits.
-- [qb-weathersync](https://github.com/QRCore-framework/qb-weathersync) - For adjusting the weather while player is creating a character.
+- [qr-core](https://github.com/QRCore-RedM-Re/qr-core)
+- [qr-spawn](https://github.com/QRCore-RedM-Re/qr-spawn)
+- [qr-appearance](https://github.com/QRCore-RedM-Re/qr-appearance)
+- [qr-clothes](https://github.com/QRCore-RedM-Re/qr-clothes)
+- [qr-weathersync](https://github.com/QRCore-RedM-Re/qr-spawn)
 
 ## Screenshots
-![Character Selection](https://cdn.discordapp.com/attachments/934470871333105674/1014215694394589294/unknown.png)
-![Character Registration](https://cdn.discordapp.com/attachments/934470871333105674/1014215687700488304/unknown.png)
+![Character Selection](https://i.imgur.com/uPZDqpV.png)
+![Character Registration](https://i.imgur.com/FffMjGH.png)
 
 ## Features
-- Ability to create up to 5 characters and delete any character.
+- Ability to create up to 2 characters
 - Ability to see character information during selection.
 
 ## Installation
 ### Manual
-- Download the script and put it in the `[qb]` directory.
+- Download the script and put it in the `[qr]` directory.
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-multicharacter
-ensure qb-spawn
-ensure qb-apartments
-ensure qb-clothing
-ensure qb-weathersync
+ensure qr-core
+ensure qr-multicharacter
+ensure qr-spawn
+ensure qr-appearance
+ensure qr-clothes
+ensure qr-weathersync
 ```
