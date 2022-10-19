@@ -5,14 +5,14 @@ local foundResources = {}
 local QRCore = exports['qr-core']:GetCoreObject()
 
 local StarterItems = {
-    ['apple'] = { amount = 1, item = 'apple' }
+    ['bread'] = { amount = 5, item = 'bread' },
+	['water'] = { amount = 5, item = 'water' }
 }
-
 
 local function GiveStarterItems(source)
     local Player = QRCore.Functions.GetPlayer(source)
     for k, v in pairs(StarterItems) do
-        Player.Functions.AddItem(v.item, 1)
+        Player.Functions.AddItem(v.item, v.amount)
     end
 end
 
