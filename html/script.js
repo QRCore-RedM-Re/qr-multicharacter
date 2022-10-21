@@ -3,14 +3,13 @@ var WelcomePercentage = "30vh"
 qbMultiCharacters = {}
 var Loaded = false;
 var NChar = null;
-var EnableDeleteButton = false;
 
 $(document).ready(function (){
     window.addEventListener('message', function (event) {
         var data = event.data;
+
         if (data.action == "ui") {
 			NChar = data.nChar;
-            EnableDeleteButton = data.enableDeleteButton;
             if (data.toggle) {
                 $('.container').show();
                 $(".welcomescreen").fadeIn(150);
@@ -50,8 +49,8 @@ $(document).ready(function (){
                         loadingProgress = 0;
                         originalText = "Retrieving data";
                         $(".welcomescreen").fadeOut(150);
-                        qbMultiCharacters.fadeInDown('.character-info', '53%', 400);
-                        qbMultiCharacters.fadeInDown('.characters-list', '17%', 400);
+                        qbMultiCharacters.fadeInDown('.character-info', '20%', 400);
+                        qbMultiCharacters.fadeInDown('.characters-list', '20%', 400);
                         $.post('https://qr-multicharacter/removeBlur');
                     }, 2000);
                 }, 2000);
@@ -144,9 +143,7 @@ $(document).on('click', '.character', function(e) {
             $("#play-text").html("Play");
             $("#delete-text").html("Delete");
             $("#play").css({"display":"block"});
-            if (EnableDeleteButton) {
-                $("#delete").css({"display":"block"});
-            }
+            $("#delete").css({"display":"block"});
             $.post('https://qr-multicharacter/cDataPed', JSON.stringify({
                 cData: cDataPed
             }));
@@ -169,9 +166,7 @@ $(document).on('click', '.character', function(e) {
             $("#play-text").html("Play");
             $("#delete-text").html("Delete");
             $("#play").css({"display":"block"});
-            if (EnableDeleteButton) {
-                $("#delete").css({"display":"block"});
-            }
+            $("#delete").css({"display":"block"});
             $.post('https://qr-multicharacter/cDataPed', JSON.stringify({
                 cData: cDataPed
             }));
@@ -197,15 +192,7 @@ function escapeHtml(string) {
 }
 function hasWhiteSpace(s) {
     return /\s/g.test(s);
-}
-
-$('#nationality').keyup(function() {
-    var nationalityValue = $(this).val();
-    if(nationalityValue.indexOf(' ') !== -1) {
-        $(this).val(nationalityValue.replace(' ', ''))
-    }
-});
-
+  }
 $(document).on('click', '#create', function (e) {
     e.preventDefault();
 
@@ -276,7 +263,7 @@ function refreshCharacters() {
 
     htmlResult += '<div class="character-btn" id="play"><p id="play-text">Select a character</p></div><div class="character-btn" id="delete"><p id="delete-text">Select a character</p></div>'
     $('.characters-list').html(htmlResult)
-    
+
     setTimeout(function(){
         $(selectedChar).removeClass("char-selected");
         selectedChar = null;
@@ -315,8 +302,8 @@ $(document).on('click', '#play', function(e) {
                 qbMultiCharacters.resetAll();
             }, 1500);
         } else {
-            $('.characters-list').css("filter", "blur(4px)")
-            $('.character-info').css("filter", "blur(4px)")
+            $('.characters-list').css("filter", "blur(2px)")
+            $('.character-info').css("filter", "blur(2px)")
             qbMultiCharacters.fadeInDown('.character-register', '25%', 400);
         }
     }
@@ -364,5 +351,4 @@ qbMultiCharacters.resetAll = function() {
     $('.welcomescreen').css("top", WelcomePercentage);
     $('.server-log').show();
     $('.server-log').css("top", "25%");
-    selectedChar = null;
 }
