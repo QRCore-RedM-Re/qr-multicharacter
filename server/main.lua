@@ -1,17 +1,9 @@
--- Functions
-local identifierUsed = GetConvar('es_identifierUsed', 'steam')
-local foundResources = {}
--- Functions
 local QRCore = exports['qr-core']:GetCoreObject()
 
-local StarterItems = {
-    ['bread'] = { amount = 5, item = 'bread' },
-	['water'] = { amount = 5, item = 'water' }
-}
-
+-- Functions --
 local function GiveStarterItems(source)
     local Player = QRCore.Functions.GetPlayer(source)
-    for k, v in pairs(StarterItems) do
+    for _, v in pairs(QRCore.Config.StarterItems) do
         Player.Functions.AddItem(v.item, v.amount)
     end
 end
@@ -48,7 +40,7 @@ local function loadHouseData()
 end
 
 RegisterNetEvent('qr-multicharacter:server:disconnect', function(source)
-    DropPlayer(source, "You have disconnected from QBCore RedM")
+    DropPlayer(source, Config.DisconnectText)
 end)
 
 RegisterNetEvent('qr-multicharacter:server:loadUserData', function(cData)
