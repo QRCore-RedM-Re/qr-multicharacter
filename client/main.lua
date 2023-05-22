@@ -167,18 +167,3 @@ RegisterNUICallback('removeCharacter', function(data) -- Removing a char
     TriggerServerEvent('qr-multicharacter:server:deleteCharacter', data.citizenid)
     TriggerEvent('qr-multicharacter:client:chooseChar')
 end)
-
--- Threads
-
-CreateThread(function()
-    RequestImap(-1699673416)
-    RequestImap(1679934574)
-    RequestImap(183712523)
-    while true do
-        Wait(0)
-        if NetworkIsSessionStarted() then
-            TriggerEvent('qr-multicharacter:client:chooseChar')
-            return
-        end
-    end
-end)
